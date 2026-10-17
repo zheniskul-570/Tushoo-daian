@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="ky">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Даяндын тушоо тою</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:linear-gradient(#071735,#15376c,#071735);
+ color:#fff5d5;text-align:center;
+ font-family:Georgia,serif;padding:20px;
+}
+main{max-width:600px;margin:auto}
+.gold{color:#f4d47c}
+.book{
+ margin:40px auto;padding:35px 20px;
+ max-width:330px;min-height:400px;
+ background:linear-gradient(120deg,#07132d,#173d79,#091632);
+ border:3px double #f4d47c;border-radius:8px 18px 18px 8px;
+ box-shadow:0 0 30px #0008;cursor:pointer;
+ display:flex;flex-direction:column;justify-content:center;gap:22px;
+ transition:transform 1s;
+}
+.book h1{font-size:36px;line-height:1.3;color:#ffe5a0}
+.book .orn{font-size:38px;color:#f4d47c}
+#invite{display:none}
+.frame{
+ border:2px solid #e6c36a;padding:25px 18px;
+ outline:1px solid #e6c36a;outline-offset:5px;
+ background:#0b2048;border-radius:8px;
+}
+h2{font-size:34px;color:#ffe5a0}
+p{line-height:1.8}
+.photo{
+ width:150px;height:150px;border:4px double #f4d47c;
+ border-radius:50%;margin:20px auto;overflow:hidden;
+ display:grid;place-items:center;background:#17376b;
+}
+.photo img{width:100%;height:100%;object-fit:cover}
+.detail{padding:12px;border-top:1px solid #c6a650;margin-top:10px}
+button,.btn{
+ display:inline-block;margin:8px;padding:13px 20px;
+ background:#f4d47c;color:#071735;border:0;border-radius:30px;
+ font-size:15px;font-weight:bold;text-decoration:none;cursor:pointer;
+}
+.secondary{background:transparent;color:#ffe5a0;border:1px solid #f4d47c}
+#message{color:#ffe5a0}
+#horse{font-size:35px;display:none}
+</style>
+</head>
+<body>
+<main>
+<section id="welcome">
+ <p class="gold">✧ СИЗДЕРГЕ АРНАЛГАН ЧАКЫРУУ ✧</p>
+ <div class="book" onclick="openInvitation()">
+  <div class="orn">❋ ❖ ❋</div>
+  <h1>Даяндын<br>тушоо тою</h1>
+  <p class="gold">АК ЖОЛ • АК БАТА</p>
+  <div class="orn">❋ ❖ ❋</div>
+  <p>📖 Чакыруу үчүн басыңыз</p>
+ </div>
+</section>
+
+<section id="invite">
+ <div class="frame">
+  <div class="gold">❋ ❖ ❋</div>
+  <div class="photo">
+   <img src="dayan.jpg" alt="Даяндын сүрөтү"
+    onerror="this.style.display='none';this.parentElement.innerHTML='👑 Даяндын сүрөтү';">
+  </div>
+  <p class="gold">КУБАНЫЧЫБЫЗГА ОРТОКТОШ БОЛУҢУЗ</p>
+  <h2>Даяндын<br>тушоо тою</h2>
+
+  <p>Кымбаттуу коноктор!</p>
+  <p>Ата-эненин ак үмүтү, үй-бүлөбүздүн чоң кубанычы болгон уулубуз Даяндын тушоо тоюна арналган ак дасторконубуздун кадырлуу коногу болууга чакырабыз!</p>
+  <p>Уулубуздун ак жолу ачылып, кадамы куттуу болсун! Ак баталарыңызды берип, кубанычыбызга ортоктош болуп кетиңиздер.</p>
+  <p>Сиздердин келүүңүздөр биз үчүн чоң сыймык жана кубаныч!</p>
+
+  <div class="detail">📅 <strong>15-ноябрь, 2026-жыл</strong></div>
+  <div class="detail">🕐 <strong>Саат 13:00</strong></div>
+  <div class="detail">📍 <strong>«Жаны муун» 14/15</strong></div>
+  <div class="detail">Урматтоо менен<br><strong>Мырзабек жана Асель</strong></div>
+
+  <h3 class="gold">ТОЙГО ЧЕЙИН</h3>
+  <h2 id="timer">Эсептелүүдө...</h2>
+
+  <a class="btn" href="https://www.google.com/maps/search/?api=1&query=%D0%96%D0%B0%D0%BD%D1%8B%20%D0%BC%D1%83%D1%83%D0%BD%2014%2F15" target="_blank">📍 Картадан көрүү</a>
+  <br>
+  <button class="secondary" onclick="toggleMusic()">♫ Музыка</button>
+  <button onclick="rsvp()">✓ Катышам</button>
+  <p id="message"></p>
+  <p class="gold">Ак жол, куттуу кадам болсун! ♡</p>
+ </div>
+</section>
+<audio id="music" src="music.mp3" loop></audio>
+</main>
+
+<script>
+function openInvitation(){
+ document.getElementById('welcome').style.display='none';
+ document.getElementById('invite').style.display='block';
+ window.scrollTo(0,0);
+}
+function rsvp(){
+ document.getElementById('message').textContent=
+ 'Рахмат! Катышууңуз белгиленди. Бул жооп азырынча уюштуруучуларга жөнөтүлбөйт.';
+}
+async function toggleMusic(){
+ const m=document.getElementById('music');
+ try{
+  if(m.paused){await m.play();}
+  else{m.pause();}
+ }catch(e){
+  document.getElementById('message').textContent=
+  'Музыка үчүн music.mp3 файлын сайтка жүктөңүз.';
+ }
+}
+function updateTimer(){
+ const eventDate=new Date('2026-11-15T13:00:00+06:00').getTime();
+ const diff=eventDate-Date.now();
+ if(diff<=0){
+  document.getElementById('timer').textContent='Той башталды!';
+  return;
+ }
+ const d=Math.floor(diff/86400000);
+ const h=Math.floor(diff%86400000/3600000);
+ const m=Math.floor(diff%3600000/60000);
+ const s=Math.floor(diff%60000/1000);
+ document.getElementById('timer').textContent=
+  d+' күн '+h+' саат '+m+' мүнөт '+s+' секунд';
+}
+updateTimer();
+setInterval(updateTimer,1000);
+</script>
+</body>
+</html>
